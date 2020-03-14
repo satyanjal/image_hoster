@@ -15,10 +15,17 @@ public class Comment {
     @Column(name = "text")
     private String text;
 
+
+    //The 'comments' table is mapped to 'users' table with Many:One mapping
+    //One comments can have only one user (owner) but one user can have multiple comments
+    //FetchType is EAGER
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
+    //The 'comments' table is mapped to 'images' table with Many:One mapping
+    //One comments can have only one image but one image can have multiple comments
+    //FetchType is EAGER
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "image_id")
     private Image image;
