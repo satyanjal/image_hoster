@@ -53,7 +53,7 @@ public class Image {
 
     @OneToMany(mappedBy = "image", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
-    
+
     public Image() {
     }
 

@@ -1,10 +1,10 @@
 package ImageHoster.repository;
 import ImageHoster.model.Comment;
+import ImageHoster.model.Image;
 import org.springframework.stereotype.Repository;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceUnit;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Repository
 public class CommentRepository {
@@ -25,6 +25,13 @@ public class CommentRepository {
             transaction.rollback();
         }
         return comment;
+    }
+
+    public List<Comment> getImageComments(Image image) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Comment> query = em.createQuery("SELECT c FROM Comment c WHERE c.image = :image", Comment.class);
+        query.setParameter("image", image);
+        return query.getResultList();
     }
 
 }

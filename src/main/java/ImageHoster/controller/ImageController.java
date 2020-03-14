@@ -55,6 +55,7 @@ public class ImageController {
         Image image = imageService.getImage(id);
         model.addAttribute("image", image);
         model.addAttribute("tags", image.getTags());
+        model.addAttribute("comments", commentService.getImageComments(image));
         return "images/image";
     }
 
@@ -110,6 +111,7 @@ public class ImageController {
             model.addAttribute("editError", error);
             model.addAttribute("image", image);
             model.addAttribute("tags", image.getTags());
+            model.addAttribute("comments", commentService.getImageComments(image));
             return "images/image";
         }
     }
@@ -165,6 +167,7 @@ public class ImageController {
             model.addAttribute("deleteError", error);
             model.addAttribute("image", existingImage);
             model.addAttribute("tags", existingImage.getTags());
+            model.addAttribute("comments", commentService.getImageComments(existingImage));
             return "images/image";
         }
         return "redirect:/images";
@@ -217,9 +220,10 @@ public class ImageController {
         for (int i = 0; i <= tags.size() - 2; i++) {
             tagString.append(tags.get(i).getName()).append(",");
         }
-
-        Tag lastTag = tags.get(tags.size() - 1);
-        tagString.append(lastTag.getName());
+        if (tags.size()>0) {
+            Tag lastTag = tags.get(tags.size() - 1);
+            tagString.append(lastTag.getName());
+        }
 
         return tagString.toString();
     }
