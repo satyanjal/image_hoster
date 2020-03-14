@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
+
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -25,16 +27,15 @@ public class CommentController {
     //Call the addComment() method in the business logic to add the comment
     //Direct to the same page showing the new comments with old comments
     @RequestMapping("/image/{imageId}/{imageTitle}/comments")
-    public String addComment(@PathVariable("imageId") Integer imageId, @PathVariable("imageTitle") String imageTitle, @RequestParam("comment") String comment, Comment newComment, HttpSession session, Model model) {
+    public RedirectView addComment(@PathVariable("imageId") Integer imageId, @PathVariable("imageTitle") String imageTitle, @RequestParam("comment") String comment, Comment newComment, HttpSession session, Model model) {
         Image image = imageService.getImage(imageId);
         User user = (User) session.getAttribute("loggeduser");
         newComment.setImage(image);
         newComment.setUser(user);
         newComment.setText(comment);
         commentService.addComment(newComment);
-        model.addAttribute("image", image);
-        model.addAttribute("tags", image.getTags());
-        model.addAttribute("comments", commentService.getImageComments(image));
-        return "images/image";
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/images/"+ imageId);
+        return redirectView;
     }
 }
