@@ -53,9 +53,9 @@ public class UserController {
 
         if (hasLetter.find() && hasDigit.find() && hasSpecial.find()) {
             userService.registerUser(user);
-            return "redirect:/users/login";
+            return "/users/login";
         } else {
-            String passwordTypeError = "Invalid";
+            String passwordTypeError = "Password must contain atleast 1 alphabet, 1 number & 1 special character";
             model.addAttribute("passwordTypeError", passwordTypeError);
             return registration(model);
         }

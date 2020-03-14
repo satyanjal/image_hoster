@@ -1,4 +1,4 @@
-/*
+
 package ImageHoster.controller;
 
 import ImageHoster.model.User;
@@ -85,7 +85,7 @@ public class UserControllerTest {
         this.mockMvc.perform(post("/users/registration")
                 .flashAttr("user", user)
         )
-                .andExpect(view().name("users/login"))
+                .andExpect(view().name("/users/login"))
                 .andExpect(content().string(containsString("Please Login:")));
     }
 
@@ -167,4 +167,4 @@ public class UserControllerTest {
                 .andExpect(content().string(containsString("Image Hoster")));
     }
 }
-*/
+
