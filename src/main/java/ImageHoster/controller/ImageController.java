@@ -173,21 +173,6 @@ public class ImageController {
         return "redirect:/images";
     }
 
-    //This controller method is called when the request pattern is of type '/image/{imageId}/{imageTitle}/comments' and add comments in the database, it is of the GET type
-    //Call the addComment() method in the business logic to add the comment
-    //Direct to the same page showing the new comments with old comments
-    @RequestMapping("/image/{imageId}/{imageTitle}/comments")
-    public String addComment(@PathVariable("imageId") Integer imageId, @PathVariable("imageTitle") String imageTitle, @RequestParam("comment") String comment, Comment newComment, HttpSession session, Model model) {
-        Image image = imageService.getImage(imageId);
-        User user = (User) session.getAttribute("loggeduser");
-        newComment.setImage(image);
-        newComment.setUser(user);
-        newComment.setText(comment);
-        commentService.addComment(newComment);
-        return showImage(imageId, model);
-    }
-
-
     //This method converts the image to Base64 format
     private String convertUploadedFileToBase64(MultipartFile file) throws IOException {
         return Base64.getEncoder().encodeToString(file.getBytes());
