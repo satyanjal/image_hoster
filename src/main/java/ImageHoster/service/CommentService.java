@@ -13,8 +13,8 @@ public class CommentService {
     @Autowired
     private CommentRepository commentRepository;
 
-    public void uploadComment(Comment comment) {
-        commentRepository.uploadComment(comment);
+    public void addComment(Comment comment) {
+        commentRepository.addComment(comment);
     }
 
     public List<Comment> getImageComments(Image image) {
